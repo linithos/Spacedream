@@ -11,6 +11,7 @@ public class BossController : MonoBehaviour
 	public int life;
 
 	float timeLeft = 5.0f;
+	float timeMissile = 0.5f;
 	bool startShoot = false;
 
 	public GameObject missile;
@@ -30,25 +31,38 @@ public class BossController : MonoBehaviour
 		{
 			lerpPosition += Time.deltaTime/lerpTime;
 			transform.position = Vector3.Lerp(start,end,lerpPosition);
+
+			if (lerpPosition >= 0.5f)
+			{
+				startMoving = false;
+				startShoot = true;
+			}
 		}
 
-		if (lerpPosition >= 0.5f)
-		{
-			startMoving = false;
-			startShoot = true;
-		}
-			
+
+
+
 		if (startShoot) 
 		{
-			
-			Instantiate (missile, transform.position, transform.rotation);
-			missile.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (-40, 0));
-			timeLeft = -Time.deltaTime;
+			if (timeMissile < 0) 
+			{
+				var newMissile = (GameObject)Instantiate (missile, transform.position, transform.rotation);
+
+				newMissile.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (-400, 0));
+				timeMissile = 0.5f;
+				timeLeft -= Time.deltaTime;
+			} else {
+				timeMissile -= Time.deltaTime;
+			}
+
 		}
 
-		if (timeLeft < 0)
-			startShoot = false;
 
+		if (timeLeft < 0.0f) 
+		{
+
+			startShoot = false;
+		}
 
 	}
 }
