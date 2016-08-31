@@ -20,6 +20,9 @@ public class Enemigos : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
         timer = timer - Time.deltaTime;
         if (timer <= 0)
         {
@@ -32,4 +35,5 @@ public class Enemigos : MonoBehaviour
       
 
     }
+  
 }

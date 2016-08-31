@@ -28,4 +28,9 @@ public class EnemyMov : MonoBehaviour {
             timeMissile -= Time.deltaTime;
         }
     }
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        Destroy(gameObject);
+
+    }
 }
